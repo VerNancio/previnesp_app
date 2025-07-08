@@ -20,7 +20,7 @@ export default function DaysWeatherScroolView() {
 
 
     const bgColor = useThemeColor({}, 'secondaryBg');
-    const detailColor = useThemeColor({}, 'primaryDetails');
+    const detailColor = useThemeColor({}, 'secondaryDetails');
 
 
     const weekDays = ['DOMINGO', 'SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO'];
@@ -68,24 +68,27 @@ export default function DaysWeatherScroolView() {
             return;
         }
 
+        useLoadingEffect(index, 700);
+
         setIndexPressed(index);
-        // useRouter().push(`/(drawer)/(tabs)/(stack)/modalWeatherDetails?day=${day}` as any);
     };
 
     const handleLongPress = function (index: number, day: string) {
-
-        setIndexPressed(index);
-        setWhichShouldLoad(index);
-
-        setTimeout(() => setWhichShouldLoad(null), 2600);
+        useLoadingEffect(index, 3000);
 
         useRouter().push(`/(drawer)/(tabs)/(stack)/modalWeatherDetails?day=${day}` as any);
     };
 
+    const useLoadingEffect = function (index: number, longness: number) {
+        setWhichShouldLoad(index);
+
+        setTimeout(() => setWhichShouldLoad(null), longness);
+    }
+
 
     return (
         <ThemedView style={{ width: '100%' }}>
-            <ThemedText type="subtitle">Temperatura ao longo do dia:</ThemedText>
+            <ThemedText type="subtitle">Tempo ao longo dos dias:</ThemedText>
             <ThemedScrollView style={{ flex: 1, borderRadius: 10, marginVertical: 10, paddingVertical: 14 }} showsHorizontalScrollIndicator={false}>
                 {dateList.map((day, index) => (
                     <TouchableOpacity 
@@ -93,10 +96,7 @@ export default function DaysWeatherScroolView() {
                     onLongPress={ () => handleLongPress(index, day)}
                     key={index}
                     style={{...(index == indexPressed ? { paddingVertical: 3, paddingHorizontal: 10 } : { paddingVertical: 5, paddingHorizontal: 12 }) }}>
-                        <DayWeather day={day} weekDay={dayList[index]} thisShouldLoad={index == shouldLoad}
-                        styles={{ borderColor: detailColor, 
-                            ...( index == indexPressed ? {borderWidth: 2} : {})
-                        }}/>
+                        <DayWeather day={day} weekDay={dayList[index]} isSelected={index == indexPressed} shouldLoad={index === shouldLoad} />
                     </TouchableOpacity>
                 ))}
             </ThemedScrollView>

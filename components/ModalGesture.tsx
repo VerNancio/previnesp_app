@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     // borderRadius: 24,
     borderTopStartRadius: 24,
     borderTopEndRadius: 24,
-    backgroundColor: '#fff8e1',
+    backgroundColor: 'white',
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 10,

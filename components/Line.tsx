@@ -1,26 +1,75 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { ThemedText } from './themedComps/ThemedText';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 const hours = Array.from({ length: 24 }, (_, i) => i); // 0h a 23h
 
 export default function HourRangeSelector() {
+
+  const lineColor = useThemeColor({}, 'primaryDetails');
+  const selectedColor = useThemeColor({}, 'secondaryDetails');
+
+  const textColor = useThemeColor({}, 'primaryText')
+  
+
   const [startHour, setStartHour] = useState<number | null>(null);
   const [endHour, setEndHour] = useState<number | null>(null);
 
   const toggleHour = (hour: number) => {
-    if (startHour === null || (startHour !== null && endHour !== null)) {
+
+    // Se os dois estiverem desativados
+    if (startHour === null && endHour === null) {
       setStartHour(hour);
-      setEndHour(null);
-    } else if (hour < startHour) {
-      setStartHour(hour);
-      setEndHour(null);
-    } else if (hour === startHour) {
+    }
+    else if (hour === startHour && endHour === null) {
       setStartHour(null);
-      setEndHour(null);
-    } else {
+    }
+    // Se os dois estão ativos
+    else if (startHour !== null && endHour !== null) {
+      // alert('c')
+
+      if (hour < startHour) {
+        setStartHour(hour);
+      } 
+      else if (hour > endHour) {
+        setEndHour(hour);
+      }
+
+      // Se hora for igual a algum
+      else if (hour === startHour || hour === endHour) {
+
+        if (hour === startHour) {
+          setStartHour(endHour);
+          setEndHour(null);
+        } 
+        else if (hour === endHour) {
+          setEndHour(null);
+        }
+
+      } 
+      
+      // Se hora estiver no meio dos dois
+      else if (startHour < hour && hour < endHour) {
+        setEndHour(hour);
+      }
+
+    }
+    else if (hour === startHour) {
+      setStartHour(null);
+      alert('x')
+
+    } 
+    else if (hour < startHour && endHour === null) {
+      setStartHour(hour);
+    }
+    else if (hour > startHour && endHour === null) {
       setEndHour(hour);
     }
+    else if (hour < endHour) {
+      setEndHour(hour);
+    } 
+    
   };
 
   const isSelected = (hour: number) => {
@@ -42,8 +91,9 @@ export default function HourRangeSelector() {
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.lineContainer}>
+
           {/* Linha base cinza */}
-          <View style={styles.fullLine} />
+          <View style={[styles.fullLine, { backgroundColor: lineColor }]} />
 
           {/* Linha azul de seleção */}
           {startHour !== null && (
@@ -53,6 +103,7 @@ export default function HourRangeSelector() {
                 {
                   left: startHour * 40,
                   width: ((endHour ?? startHour + 0.01) - startHour) * 40,
+                  backgroundColor: selectedColor
                 },
               ]}
             />
@@ -68,9 +119,9 @@ export default function HourRangeSelector() {
                 { left: hour * 40 - 6 },
               ]}
             >
-                <TouchableOpacity style={isSelected(hour) && styles.selectedDot}>
-                    <Text style={styles.hourText}>{hour}h</Text>
-                </TouchableOpacity>
+                <View style={isSelected(hour) && [styles.selectedDot, { backgroundColor: selectedColor }]} />
+                <Text style={[styles.hourText, { color: textColor }]}>{hour}h</Text>
+
             </TouchableOpacity>
           ))}
         </View>
@@ -81,29 +132,32 @@ export default function HourRangeSelector() {
 
 const styles = StyleSheet.create({
   lineContainer: {
-    height: 40,
-    paddingVertical: 30,
-    position: 'relative',
-    justifyContent: 'center',
-    marginBottom: 6,
-    width: 24 * 40,
-  },
+  height: 60, 
+  position: 'relative',
+  justifyContent: 'center',
+  marginBottom: 6,
+  width: 24 * 40,
+  } ,
   fullLine: {
-    position: 'absolute',
-    height: 4,
-    backgroundColor: '#ddd',
-    top: 18,
-    borderRadius: 2,
+  position: 'absolute',
+  height: 4,
+  backgroundColor: 'red', // (apenas pra testar visualmente)
+  top: 18,
+  left: 0,                // <<< ESSENCIAL
+  right: 0,               // <<< ESSENCIAL
+  borderRadius: 2,
   },
   selectedLine: {
     position: 'absolute',
     height: 4,
+    marginLeft: 20,
     backgroundColor: '#007AFF',
     top: 18,
     borderRadius: 2,
   },
   hourDot: {
-    paddingVertical: 30,
+    paddingVertical: 3,
+    // backgroundColor: 'red',
     paddingHorizontal: 20,
     // backgroundColor: 'red',
     position: 'absolute',
@@ -115,13 +169,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     width: 18,
     height: 18,
-    right: 5,
     borderRadius: 8,
-    top: 11,
+    // top: 11,
   },
   hourText: {
+    // position: 'absolute',
     fontSize: 12,
-    marginTop: 22,
-    color: '#333',
+    marginTop: 18,
+    // color: '#333',
   },
 });

@@ -17,7 +17,7 @@ import { ActivityIndicator } from 'react-native';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const loadingColor = useThemeColor({}, 'primaryDetails');
+  const loadingColor = useThemeColor({}, 'secondaryDetails');
 
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),

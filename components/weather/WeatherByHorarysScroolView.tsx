@@ -18,7 +18,7 @@ export default function WeatherByHorarysScroolView() {
 
 
     const bgColor = useThemeColor({}, 'secondaryBg');
-    const detailColor = useThemeColor({}, 'primaryDetails');
+    const detailColor = useThemeColor({}, 'secondaryDetails');
     
 
     const hours: string[] = [];

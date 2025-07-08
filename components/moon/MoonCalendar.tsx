@@ -9,7 +9,7 @@ import { ThemedView } from '../themedComps/ThemedView';
 export default function MoonCalendar() {
 
     const bgColor = useThemeColor({}, 'secondaryBg');
-    const detailColor = useThemeColor({}, 'primaryDetails');
+    const detailColor = useThemeColor({}, 'secondaryDetails');
 
 
     const weekDays = ['DOMINGO', 'SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO'];

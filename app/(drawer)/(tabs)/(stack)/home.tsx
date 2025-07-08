@@ -8,9 +8,6 @@ import DaysWeatherScroolView from '@/components/weather/DaysWeatherScroolView';
 import WeatherByHorarysScroolView from '@/components/weather/WeatherByHorarysScroolView';
 import { WeatherIcon } from '@/components/weather/WeatherIcon';
 import SelectNeighborhoodView from '@/components/neighborhood/SelectNeighborhoodView';
-import { Link } from 'expo-router';
-import { ThemedText } from '@/components/themedComps/ThemedText';
-import HourRangeSelector from '@/components/Line';
 
 
 export default function HomeScreen() {
@@ -30,10 +27,6 @@ export default function HomeScreen() {
       }>
       <ThemedView style={styles.titleContainer}>
         <SelectNeighborhoodView />
-      </ThemedView>
-      <ThemedView style={styles.titleContainer}>
-        <HourRangeSelector />
-
       </ThemedView>
       <ThemedView style={styles.titleContainer}>
         <WeatherByHorarysScroolView />

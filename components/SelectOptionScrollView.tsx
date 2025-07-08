@@ -22,8 +22,9 @@ export type SelectOptionScrollViewProps = ThemedScrollViewProps & {
 
 export default function SelectOptionScrollView({ styles, innerColor, outerColor, type = 'semiRounded', options, setState, currentState }: SelectOptionScrollViewProps) {
 
-    const bgColor = useThemeColor({}, 'secondaryBg');
-    const detailColor = useThemeColor({}, 'warning');
+    const borderColor = useThemeColor({}, 'primaryText');
+    const bgColor = useThemeColor({}, 'primaryBg');
+    const detailColor = useThemeColor({}, 'secondaryDetails');
 
     
     const handlePress = function (key: string): void {
@@ -42,13 +43,15 @@ export default function SelectOptionScrollView({ styles, innerColor, outerColor,
                     onPress={ () => handlePress(option) }
                     key={option} 
                     style={{ 
-                    
+                    alignItems: 'center',
                     paddingVertical: 1,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 7,
+                    minWidth: 40,
+                    // maxWidth: 70,
                     borderRadius: 10, 
                     borderWidth: 2,
                     backgroundColor: innerColor?? bgColor,
-                    borderColor: option == currentState ? detailColor : 'white',
+                    borderColor: option == currentState ? detailColor : borderColor,
                     // marginLeft: index == 0 ? 10 : 0,
                     // marginRight: index == options.length - 1 ? 10 : 0,
                     }}>
