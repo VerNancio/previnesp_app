@@ -43,7 +43,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="moreInfo"
           options={{
-            title: 'Informações',
+            title: 'Mais Informações',
             tabBarIcon: ({ color }) => <Icon size={28} name="weather-partly-cloudy" color={color} />,
           }}
         />

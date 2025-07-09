@@ -59,7 +59,7 @@ export default function WeatherByHorarysScroolView() {
                             }}>
                             <WeatherByHorary 
                             hour={hour}
-                            size={20}
+                            size={16}
                             styles={{ borderWidth: index == indexPressed ? 2 : 0, 
                                       borderColor: detailColor,
                                       borderRadius: 50,

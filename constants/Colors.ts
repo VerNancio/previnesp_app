@@ -22,7 +22,9 @@ export const Colors = {
     danger: '#ff1337',
     warning: '#ffb013',
     white: '#fff',
-    black: '#000'
+    black: '#000',
+    cold: '',
+    warn: ''
   },
   dark: {
     primaryText: '#ECEDEE',

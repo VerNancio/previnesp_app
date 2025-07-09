@@ -1,16 +1,14 @@
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
 import { ThemedText } from '../themedComps/ThemedText';
 import { ThemedView } from '../themedComps/ThemedView';
-import { ThemedScrollView } from '../themedComps/ThemedScrollView';
 
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import HourRangeSelector from '../rangeSelector/HourRangeSelector';
 import SelectOptionScrollView from '../SelectOptionScrollView';
 import DescriptiveWeartherInfo from './DescriptiveWeartherInfo';
-import HourRangeSelector from '../Line';
+import DayRangeSelector from '../rangeSelector/DayRangeSelector';
 
 
 
@@ -32,8 +30,13 @@ export default function AverageTempView() {
                                 <SelectOptionScrollView currentState={selectedRegion} setState={setSelectedRegion} options={regioes} />
                             </View>
                         </View>
-                        <View>
-                            <HourRangeSelector />
+                        <View style={{ paddingVertical: 20, gap: 10 }}>
+                            <View>
+                                <DayRangeSelector />
+                            </View>
+                            <View>
+                                <HourRangeSelector />
+                            </View>
                         </View>
                         <View style={{ gap: 18, paddingHorizontal: 20 }}>
                             <DescriptiveWeartherInfo title='Temperatura' />
@@ -41,6 +44,7 @@ export default function AverageTempView() {
                             <DescriptiveWeartherInfo title='Humidade' />
                             <DescriptiveWeartherInfo title='Força do Vento' />
                             <DescriptiveWeartherInfo title='Nebulosidade' />
+                            <DescriptiveWeartherInfo title='Indíce UV' />
                         </View>
                     </View>
                     {/* Botao de teste */}

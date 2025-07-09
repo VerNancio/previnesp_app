@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 14,
     lineHeight: 24,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
 });

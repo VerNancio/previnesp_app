@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import { ThemedText } from './themedComps/ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ThemedText } from '../themedComps/ThemedText';
 
 const hours = Array.from({ length: 24 }, (_, i) => i); // 0h a 23h
 
@@ -55,12 +55,8 @@ export default function HourRangeSelector() {
       }
 
     }
-    else if (hour === startHour) {
-      setStartHour(null);
-      alert('x')
-
-    } 
     else if (hour < startHour && endHour === null) {
+      setEndHour(startHour);
       setStartHour(hour);
     }
     else if (hour > startHour && endHour === null) {
@@ -68,9 +64,10 @@ export default function HourRangeSelector() {
     }
     else if (hour < endHour) {
       setEndHour(hour);
-    } 
-    
+    }
+
   };
+
 
   const isSelected = (hour: number) => {
     if (startHour !== null && endHour !== null) {
@@ -80,13 +77,13 @@ export default function HourRangeSelector() {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <ThemedText style={{ marginBottom: 10 }}>
+    <View style={{ paddingHorizontal: 20 }}>
+      <ThemedText style={{ marginBottom: 4 }}>
         {startHour !== null && endHour !== null
           ? `Selecionado: ${startHour}h às ${endHour}h`
           : startHour !== null
           ? `Selecionado: ${startHour}h`
-          : 'Toque para selecionar horário'}
+          : 'Toque para selecionar horário: '}
       </ThemedText>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -115,12 +112,12 @@ export default function HourRangeSelector() {
               key={hour}
               onPress={() => toggleHour(hour)}
               style={[
-                styles.hourDot,
+                styles.dayDot,
                 { left: hour * 40 - 6 },
               ]}
             >
                 <View style={isSelected(hour) && [styles.selectedDot, { backgroundColor: selectedColor }]} />
-                <Text style={[styles.hourText, { color: textColor }]}>{hour}h</Text>
+                <Text style={[styles.dayText, { color: textColor }]}>{hour}h</Text>
 
             </TouchableOpacity>
           ))}
@@ -135,7 +132,6 @@ const styles = StyleSheet.create({
   height: 60, 
   position: 'relative',
   justifyContent: 'center',
-  marginBottom: 6,
   width: 24 * 40,
   } ,
   fullLine: {
@@ -155,7 +151,7 @@ const styles = StyleSheet.create({
     top: 18,
     borderRadius: 2,
   },
-  hourDot: {
+  dayDot: {
     paddingVertical: 3,
     // backgroundColor: 'red',
     paddingHorizontal: 20,
@@ -172,7 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     // top: 11,
   },
-  hourText: {
+  dayText: {
     // position: 'absolute',
     fontSize: 12,
     marginTop: 18,
