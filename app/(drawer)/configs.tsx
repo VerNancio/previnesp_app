@@ -1,11 +1,10 @@
 import { Appearance, StyleSheet, TouchableOpacity, View, } from 'react-native';
+import { useState } from 'react';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/themedComps/ThemedText';
+import DarkModeSwitch from '@/components/themedComps/ThemedDarkModeSwitch';
 
-import ThemedSwitch from '@/components/themedComps/ThemedSwitch';
-
-import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -32,8 +31,8 @@ export default function ConfigScreen() {
             </View>
             }
         >
-      <View style={{ backgroundColor: 'red' }}>
-        <ThemedSwitch onChangeFunction={ changeColorTheme } />
+      <View style={{ paddingVertical: 20 }}>
+        <DarkModeSwitch onChangeFunction={ changeColorTheme } />
       </View>
     </ParallaxScrollView>
   );

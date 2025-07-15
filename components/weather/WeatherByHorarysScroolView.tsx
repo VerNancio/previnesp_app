@@ -7,18 +7,29 @@ import { ThemedScrollView } from '../themedComps/ThemedScrollView';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useEffect, useState } from 'react';
+import { Background } from '@react-navigation/elements';
+import tinycolor from 'tinycolor2';
 
 
 
 export default function WeatherByHorarysScroolView() {
 
-    // const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, defaultColor);
-
-    // return <View style={[{ backgroundColor }, style]} {...otherProps} />;
-
 
     const bgColor = useThemeColor({}, 'secondaryBg');
     const detailColor = useThemeColor({}, 'secondaryDetails');
+    const bgColorCurrHour = tinycolor(bgColor).lighten(4).toString(); 
+
+
+
+    const [currentHour, setCurrentHour] = useState(new Date().toLocaleTimeString());
+    
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentHour(new Date().toLocaleTimeString([], {hour: '2-digit'}));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
     
 
     const hours: string[] = [];
@@ -52,18 +63,23 @@ export default function WeatherByHorarysScroolView() {
                             key={index} 
                             style={{ 
                             ...(index == indexPressed ? 
-                                { paddingVertical: 6, marginHorizontal: 0 } : 
-                                { paddingVertical: 8 }),
+                                { 
+                                    paddingVertical: 6, marginHorizontal: 0 
+                                } : { 
+                                    paddingVertical: 8 
+                                }),
                             marginLeft: index == 0 ? 10 : 0,
                             marginRight: index == hours.length - 1 ? 10 : 0
                             }}>
                             <WeatherByHorary 
                             hour={hour}
                             size={16}
-                            styles={{ borderWidth: index == indexPressed ? 2 : 0, 
-                                      borderColor: detailColor,
-                                      borderRadius: 50,
-                                    }}
+                            styles={{
+                                borderWidth: index == indexPressed ? 2 : 0, 
+                                borderColor: detailColor,
+                                borderRadius: 50,
+                                backgroundColor: hour.startsWith(currentHour) ? bgColorCurrHour : ''
+                            }}
                             />
                         </TouchableOpacity>
                     ))}

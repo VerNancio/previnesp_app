@@ -16,7 +16,7 @@ export default function AverageTempView() {
 
     const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
-    let regioes: string[] = ['ZS', 'ZO', 'ZN', 'ZL', 'CE', 'ME'];
+    let zones: string[] = ['ZS', 'ZO', 'ZN', 'ZL', 'CE', 'ME'];
 
     
     return (
@@ -27,7 +27,7 @@ export default function AverageTempView() {
                         <View style={{ paddingHorizontal: 20 }}>
                             <ThemedText type='subtitle'>Regiões:</ThemedText>
                             <View style={{ alignItems: 'center' }}>
-                                <SelectOptionScrollView currentState={selectedRegion} setState={setSelectedRegion} options={regioes} />
+                                <SelectOptionScrollView currentState={selectedRegion} setState={setSelectedRegion} options={zones} />
                             </View>
                         </View>
                         <View style={{ paddingVertical: 20, gap: 10 }}>

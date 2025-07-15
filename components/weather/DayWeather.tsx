@@ -57,7 +57,7 @@ export default function DayWeather({
                 </View>
                 <View style={{ justifyContent: 'center' }}>
                 {shouldLoad ? (
-                    <ActivityIndicator color={detailColor} />
+                    <ActivityIndicator color={chevronColor} />
                 ) : (
                     <Icon name={expanded ? "chevron-down" : "chevron-right"} size={30} color={chevronColor} />
                 )}

@@ -36,17 +36,18 @@ export default function DescriptiveWeartherInfo({ title, data }: DescriptiveWear
                 paddingHorizontal: 16, paddingVertical: 12,
                 borderColor: detailColor, borderWidth: 2 
             }}>
-                <View 
+                <TouchableOpacity 
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',     // ✅ Mantido — alinha os filhos verticalmente
                     justifyContent: 'center', // ✅ Mantido — centraliza os blocos horizontalmente
                     gap: 4,   
                 }}
+                onPress={toggleShowMore}
                 >
                     <View style={{ flexDirection: 'row', alignItems: 'center'  }}>
-                        <ThemedText type='defaultSemiBold'>23-29</ThemedText>
-                        <ThemedText type='defaultSemiBold'> Média: 26</ThemedText>
+                        <ThemedText type='defaultSemiBold'>23-29 </ThemedText>
+                        <ThemedText type='defaultSemiBold'>| Média: 26 </ThemedText>
                     </View>
 
                     <View style={{ flex: 1 }}>
@@ -64,7 +65,7 @@ export default function DescriptiveWeartherInfo({ title, data }: DescriptiveWear
                         <ThemedText type='subtitle'>+</ThemedText>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
 
                 {showMore && 
                 (<View>

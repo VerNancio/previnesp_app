@@ -29,13 +29,6 @@ export function WeatherIcon({
     }: WeatherIconProps) {
 
     const iconColor = useThemeColor({}, 'primaryText');
-    
-
-    // const now = new Date();
-
-    // if (day == undefined) localDay = now.toISOString();
-    // if (day == undefined) localHour = now.toLocaleTimeString();
-
 
     return(
         <View style={{ alignItems: 'center' }}>
@@ -46,7 +39,6 @@ export function WeatherIcon({
                 color={color?? iconColor}
                 // style={{ position: 'absolute' }}
                 />
-                
                 {/* <Icon 
                 name="cloud" 
                 size={size} 

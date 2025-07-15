@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { Appearance, View } from "react-native";
 
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
@@ -10,7 +10,7 @@ import { Colors } from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 
-export type ThemedSwitchProps = {
+export type DarkModeSwitchProps = {
 //   lightColor?: string;
 //   darkColor?: string;
   enabledThumbDefaultColor?: keyof typeof Colors.light & keyof typeof Colors.dark;
@@ -22,28 +22,42 @@ export type ThemedSwitchProps = {
 };
 
 
-export default function ThemedSwitch({
-  enabledThumbDefaultColor = 'primaryText',
-  disabledThumbDefaultColor = 'primaryText',
-  enabledTrackDefaultColor = 'danger',
-  disabledTrackDefaultColor = 'warning',
+export default function DarkModeSwitch({
+  enabledThumbDefaultColor = 'white',
+  disabledThumbDefaultColor = 'white',
+  enabledTrackDefaultColor = 'secondaryDetails',
+  disabledTrackDefaultColor = 'primaryDetails',
   onChangeFunction,
   ...rest
-}: ThemedSwitchProps) {
+}: DarkModeSwitchProps) {
+
+    const bgColor = useThemeColor({}, 'secondaryBg');
+    const borderColor = useThemeColor({}, 'primaryDetails');
+
 
     const [enabledThumbColor, disabledThumbColor] = [useThemeColor({}, enabledThumbDefaultColor), useThemeColor({}, disabledThumbDefaultColor)];
     const [enabledTrackColor, disabledTrackColor] = [useThemeColor({}, enabledTrackDefaultColor), useThemeColor({}, disabledTrackDefaultColor)];
     
 
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(Appearance.getColorScheme() === 'dark' ? true : false);
 
     const toggleSwitch = () => {
-        setIsEnabled(!isEnabled);
+      setIsEnabled(!isEnabled);
+      alert(isEnabled)
     };
 
 
     return (
-        <ThemedView>
+        <View style={{ 
+          backgroundColor: bgColor, 
+          borderRadius: 10,
+          // borderWidth: 2,
+          // borderColor: borderColor,
+          alignItems: 'center',
+          flexDirection: 'row', 
+          justifyContent: 'space-around',
+          paddingVertical: 10,
+        }}>
             <View>
                 <ThemedText type="subtitle">Dark Mode:</ThemedText>
             </View>
@@ -60,6 +74,6 @@ export default function ThemedSwitch({
             thumbColor={ isEnabled ? enabledThumbColor : disabledThumbColor }
             trackColor={{ true: enabledTrackColor, false: disabledTrackColor}}
             />
-        </ThemedView>
+        </View>
     );
 }

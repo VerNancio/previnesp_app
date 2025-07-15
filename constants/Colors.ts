@@ -24,7 +24,8 @@ export const Colors = {
     white: '#fff',
     black: '#000',
     cold: '',
-    warn: ''
+    warn: '',
+    darkGray: '#151718',
   },
   dark: {
     primaryText: '#ECEDEE',
@@ -44,6 +45,7 @@ export const Colors = {
     danger: '#ff1337',
     warning: '#ffb013',
     white: '#fff',
-    black: '#000'
+    black: '#000',
+    darkGray: '#151718',
   },
 };

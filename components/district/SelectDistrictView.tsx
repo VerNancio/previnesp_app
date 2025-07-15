@@ -5,29 +5,44 @@ import { ThemedView } from '../themedComps/ThemedView';
 import { ThemedScrollView } from '../themedComps/ThemedScrollView';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRouter } from 'expo-router';
+import District from '@/services/district/District';
+import { useFocusEffect } from 'expo-router';
 
 
 
 
-export default function SelectNeighborhoodView() {
+export default function SelectDistrictView() {
 
-    // const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, defaultColor);
+    const districtService = new District();
 
-    // return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+    const [districtName, setDistrictName] = useState<string | null>(null)
+
+    const loadDistrictName = async () => {
+        let name: string | null = await districtService.getDistrictName() ?? null;
+
+        if (name) {
+            setDistrictName(name);
+        }
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+        loadDistrictName(); 
+        }, [])
+    );
 
 
-    // const bgColor = useThemeColor({}, 'secondaryBg');
     const iconColor = useThemeColor({}, 'primaryText');
 
     const [isPressed, setIsPressed] = useState<boolean>(false);
 
     const handlePress = () => {
         setIsPressed(true);
-        useRouter().push(`/(drawer)/(tabs)/(stack)/modalSelectNeighborhood` as any);
+        useRouter().push(`/(drawer)/(tabs)/(stack)/modalSelectDistrict` as any);
     };
     
     return (
@@ -39,7 +54,11 @@ export default function SelectNeighborhoodView() {
                         <TouchableOpacity 
                         style={{ alignItems: 'center', flexDirection: 'row', paddingHorizontal: 20 }}
                         onPressIn={() => handlePress()} onPressOut={() => setIsPressed(false)}>
-                            <ThemedText type='defaultSemiBold'>Selecione o Bairro </ThemedText>
+                            { districtName ?
+                                <ThemedText type='defaultSemiBold'>{districtName} </ThemedText>
+                                    :
+                                <ThemedText type='defaultSemiBold'>Selecione o Bairro </ThemedText>
+                            }
                             <View style={{ justifyContent: 'center' }}>
                                 <Icon name="chevron-right" size={26} color={iconColor} />
                             </View>

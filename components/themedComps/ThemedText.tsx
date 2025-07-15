@@ -8,7 +8,7 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   defaultColor?: keyof typeof Colors.light & keyof typeof Colors.dark;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'small' | 'custom';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'small' | 'smallSemiBold' | 'custom';
 };
 
 export function ThemedText({
@@ -33,6 +33,7 @@ export function ThemedText({
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
         type === 'small' ? styles.small : undefined,
+        type === 'smallSemiBold' ? styles.smallSemiBold : undefined,
         type === 'custom' ? style : undefined,        
         style,
       ]}
@@ -69,5 +70,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     // fontWeight: 'bold',
+  },
+  smallSemiBold: {
+    fontSize: 14,
+    lineHeight: 24,
+    fontWeight: '600',
   },
 });
